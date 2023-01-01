@@ -4,29 +4,26 @@ import jakarta.persistence.*;
 import org.jetbrains.annotations.NotNull;
 
 @Entity
-@Table(name = "access")
-public class Access {
+@Table(name = "office")
+public class Office {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @NotNull
-    @Column(name = "email", unique = true)
-    private String email;
-    @NotNull
-    @Column(name = "password")
-    private String password;
+    @Column(name = "title")
+    private String title;
 
     /*-----------------------------------------------*  CONSTRUCTORS  *-----------------------------------------------*/
 
-    public Access(Long id, String email, String password) {
+    public Office(Long id, String title) {
         this.id = id;
-        this.email = email;
-        this.password = password;
+        this.title = title;
     }
 
-    public Access() {
+    public Office(){
+
     }
 
     /*-------------------------------------------*  GETTERS AND SETTERS  *--------------------------------------------*/
@@ -39,19 +36,11 @@ public class Access {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
