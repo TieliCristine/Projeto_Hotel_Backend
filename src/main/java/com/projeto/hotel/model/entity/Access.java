@@ -1,9 +1,7 @@
 package com.projeto.hotel.model.entity;
 
-
 import jakarta.persistence.*;
-
-import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Table(name = "access")
@@ -11,20 +9,22 @@ public class Access {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(unique = true)
+    @NotNull
+    @Column(name = "email", unique = true)
     private String email;
-    @Column(unique = true)
+    @NotNull
+    @Column(name = "password")
     private String password;
 
-    public Access(Long id, String email, String password) {
+    public Access() {
+    }
+
+    public Access(Long id, @NotNull String email, @NotNull String password) {
         this.id = id;
         this.email = email;
         this.password = password;
-    }
-
-    public Access() {
-
     }
 
     public Long getId() {
@@ -52,15 +52,11 @@ public class Access {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Access)) return false;
-        Access access = (Access) o;
-        return id.equals(access.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public String toString() {
+        return "Access{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
