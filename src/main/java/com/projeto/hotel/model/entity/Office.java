@@ -9,10 +9,8 @@ public class Office {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     @NotNull
-    @Column(name = "title")
     private String title;
 
     /*-----------------------------------------------*  CONSTRUCTORS  *-----------------------------------------------*/

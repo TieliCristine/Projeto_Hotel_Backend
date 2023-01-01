@@ -11,21 +11,16 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "cpf", unique = true)
     @NotNull
+    @Column(unique = true)
     private String cpf;
-    @Column(name = "name")
     @NotNull
     private String name;
-    @Column(name = "birthdate")
     @NotNull
     private Date birthdate;
-    @Column(name = "gender")
     @NotNull
     private String gender;
-    @Column(name = "mobile")
     @NotNull
     private String mobile;
 
