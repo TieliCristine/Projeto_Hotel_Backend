@@ -9,27 +9,19 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
     @NotNull
-    @Column(name = "zipcode")
     private String zipCode;
     @NotNull
-    @Column(name = "street")
     private String street;
     @NotNull
-    @Column(name = "number")
     private int number;
-    @Column(name = "supplemental")
     private String supplemental;
     @NotNull
-    @Column(name = "district")
     private String district;
     @NotNull
-    @Column(name = "city")
     private String city;
     @NotNull
-    @Column(name = "state")
     private String state;
 
     /*-----------------------------------------------*  CONSTRUCTORS  *-----------------------------------------------*/

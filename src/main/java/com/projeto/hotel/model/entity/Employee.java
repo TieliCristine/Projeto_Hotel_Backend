@@ -10,21 +10,16 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "cpf", unique = true)
+    @Column(unique = true)
     @NotNull
     private String cpf;
-    @Column(name = "name")
     @NotNull
     private String name;
-    @Column(name = "birthdate")
     @NotNull
     private Date birthdate;
-    @Column(name = "gender")
     @NotNull
     private String gender;
-    @Column(name = "mobile")
     @NotNull
     private String mobile;
 

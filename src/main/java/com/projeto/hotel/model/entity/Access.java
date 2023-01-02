@@ -9,13 +9,11 @@ public class Access {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     @NotNull
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
     @NotNull
-    @Column(name = "password")
     private String password;
 
     /*-----------------------------------------------*  CONSTRUCTORS  *-----------------------------------------------*/

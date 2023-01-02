@@ -9,28 +9,21 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     @NotNull
     @Column(unique = true)
     private int number;
     @NotNull
-    @Column
     private String position;
     @NotNull
-    @Column
     private int floor;
     @NotNull
-    @Column
     private Integer dailyPrice;
     @NotNull
-    @Column
     private Boolean smoker;
     @NotNull
-    @Column
     private int people;
     @NotNull
-    @Column
     private Boolean status;
 
     /*-----------------------------------------------*  CONSTRUCTORS  *-----------------------------------------------*/
