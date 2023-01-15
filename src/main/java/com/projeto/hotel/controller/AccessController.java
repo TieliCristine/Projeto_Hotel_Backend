@@ -1,30 +1,35 @@
 package com.projeto.hotel.controller;
 
 import com.projeto.hotel.model.entity.Access;
-import com.projeto.hotel.model.repository.AccessRepository;
+import com.projeto.hotel.service.AccessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/access")
 public class AccessController {
 
     @Autowired
-    private AccessRepository accessRepository;
+    private AccessService accessService;
 
-    @GetMapping
-    public ResponseEntity<List<Access>> findAll(){
-        List<Access> list = accessRepository.findAll();
-        return ResponseEntity.ok().body(list);
+    @PostMapping(value = "/registerAccess")
+    public Access save(@RequestBody Access access){
+        return accessService.save(access);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Access> findById(@PathVariable Long id){
-        Access access = accessRepository.findById(id).get();
-        return ResponseEntity.ok().body(access);
+    @GetMapping(value = "/findAccessById/{id}")
+    public Access findById(@PathVariable Long id){
+        return accessService.findById(id);
+    }
+
+    @PutMapping(value = "/editAccess")
+    public Access update(@RequestBody Access access){
+        return accessService.save(access);
+    }
+
+    @DeleteMapping(value = "/deleteAccess/{id}")
+    public String delete(@PathVariable Long id){
+        return accessService.delete(id);
     }
 
 }
