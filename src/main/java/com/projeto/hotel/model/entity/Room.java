@@ -5,11 +5,7 @@ import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "room")
 public class Room {
@@ -17,20 +13,19 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private int number;
-    @NotNull
+    @Column(nullable = false)
     private String position;
-    @NotNull
+    @Column(nullable = false)
     private int floor;
-    @NotNull
+    @Column(nullable = false)
     private Integer dailyPrice;
-    @NotNull
+    @Column(nullable = false)
     private Boolean smoker;
-    @NotNull
+    @Column(nullable = false)
     private int qtdPeople;
-    @NotNull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusRoom status;
 }

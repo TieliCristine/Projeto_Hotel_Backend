@@ -6,11 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -18,24 +14,21 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String cpf;
-    @NotNull
+    @Column(nullable = false)
     private String name;
-    @NotNull
+    @Column(nullable = false)
     private Date birthdate;
-    @NotNull
+    @Column(nullable = false)
     private String gender;
-    @NotNull
+    @Column(nullable = false)
     private String mobile;
-    @NotNull
+    @Column(nullable = false)
     private String office;
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Access access;
 }

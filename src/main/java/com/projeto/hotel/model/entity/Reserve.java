@@ -7,11 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "reserve")
 public class Reserve {
@@ -19,16 +15,16 @@ public class Reserve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @Column(nullable = false)
     private int qtdPeople;
-    @NotNull
+    @Column(nullable = false)
     private Date checkin;
-    @NotNull
+    @Column(nullable = false)
     private Date checkout;
-    @NotNull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusReserve status;
-    @NotNull
+    @Column(nullable = false)
     private Integer price;
 
     @OneToOne

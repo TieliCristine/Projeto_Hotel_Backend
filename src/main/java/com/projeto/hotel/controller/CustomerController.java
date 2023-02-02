@@ -2,15 +2,15 @@ package com.projeto.hotel.controller;
 
 import com.projeto.hotel.model.entity.Customer;
 import com.projeto.hotel.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/customer")
+@AllArgsConstructor
 public class CustomerController {
 
-    @Autowired
     private CustomerService customerService;
 
     @PostMapping(value = "/registerCustomer")

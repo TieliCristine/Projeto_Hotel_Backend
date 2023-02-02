@@ -5,11 +5,7 @@ import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "address")
 public class Address {
@@ -17,17 +13,17 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull
+    @Column(nullable = false)
     private String zipCode;
-    @NotNull
+    @Column(nullable = false)
     private String street;
-    @NotNull
+    @Column(nullable = false)
     private int number;
     private String supplemental;
-    @NotNull
+    @Column(nullable = false)
     private String district;
-    @NotNull
+    @Column(nullable = false)
     private String city;
-    @NotNull
+    @Column(nullable = false)
     private String state;
 }

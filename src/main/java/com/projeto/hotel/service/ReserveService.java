@@ -26,33 +26,18 @@ public class ReserveService {
     private RoomRepository roomRepository;
 
     public Reserve save(Reserve reserveForm) {
-
-
-
-
     Optional<Customer> customer = customerRepository.findById(reserveForm.getCustomer().getId());
     Optional<Employee> employee = employeeRepository.findById(reserveForm.getEmployee().getId());
     Optional<Room> room = roomRepository.findById(reserveForm.getRoom().getId());
-
-
-
-        System.out.println(customer);
-        System.out.println(employee);
-        System.out.println(room);
-
-
     if (customer.isPresent() && employee.isPresent() && room.isPresent()){
         Reserve reserve = reserveRepository.save(reserveForm);
     }
-
         return reserveRepository.save(reserveForm);
-
     }
 
     public List<Reserve> list() {
         return reserveRepository.findAll();
     }
-
 
     public Reserve update(Reserve reserve) {
         Reserve existingReserve = reserveRepository.findById(reserve.getId()).orElse(null);

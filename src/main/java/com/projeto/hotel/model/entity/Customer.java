@@ -2,15 +2,11 @@ package com.projeto.hotel.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.jetbrains.annotations.NotNull;
-import java.util.Date;
+
+import java.util.Calendar;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "Customer")
 public class Customer {
@@ -18,21 +14,21 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String cpf;
-    @NotNull
+    @Column(nullable = false)
     private String name;
-    @NotNull
-    private Date birthdate;
-    @NotNull
+    @Column(nullable = false)
+    private Calendar birthdate;
+    @Column(nullable = false)
     private String gender;
-    @NotNull
+    @Column(nullable = false)
     private String mobile;
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address address;
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
-    private Access access;
+//    @Column(nullable = false)
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Address address;
+//    @Column(nullable = false)
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Access access;
 }

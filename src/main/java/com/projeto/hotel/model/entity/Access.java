@@ -5,11 +5,7 @@ import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "access")
 public class Access {
@@ -17,9 +13,8 @@ public class Access {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
-    @NotNull
+    @Column(nullable = false)
     private String password;
 }
