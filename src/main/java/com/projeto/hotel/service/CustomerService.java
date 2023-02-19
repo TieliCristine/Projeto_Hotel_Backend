@@ -1,5 +1,6 @@
 package com.projeto.hotel.service;
 
+import com.projeto.hotel.exception.RecordNotFoundException;
 import com.projeto.hotel.model.entity.Customer;
 import com.projeto.hotel.model.repository.CustomerRepository;
 import jakarta.validation.Valid;
@@ -7,8 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
 import java.util.List;
-import java.util.Optional;
 
 @Validated
 @Service
@@ -24,15 +25,15 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-    public Optional<Customer> findById(@NotNull @Positive Long id) {
-        return customerRepository.findById(id);
+    public Customer findById(@NotNull @Positive Long id) {
+        return customerRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     public Customer save(@Valid Customer customer) {
         return customerRepository.save(customer);
     }
 
-    public Optional<Customer> update(@NotNull @Positive Long id, @Valid Customer customer) {
+    public Customer update(@NotNull @Positive Long id, @Valid Customer customer) {
         return customerRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setCpf(customer.getCpf());
@@ -41,16 +42,11 @@ public class CustomerService {
                     recordFound.setGender(customer.getGender());
                     recordFound.setMobile(customer.getMobile());
                     return customerRepository.save(recordFound);
-                });
+                }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public boolean delete(@NotNull @Positive Long id) {
-        return customerRepository.findById(id)
-                .map(recordFound -> {
-                    customerRepository.deleteById(id);
-                    return true;
-                })
-                .orElse(false);
+    public void delete(@NotNull @Positive Long id) {
+        customerRepository.delete(customerRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id)));
     }
-
 }
