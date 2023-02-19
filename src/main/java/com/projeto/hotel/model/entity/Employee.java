@@ -6,11 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "employee")
 public class Employee {

@@ -5,11 +5,7 @@ import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "address")
 public class Address {
