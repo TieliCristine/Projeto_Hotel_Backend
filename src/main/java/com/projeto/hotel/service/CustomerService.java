@@ -1,52 +1,52 @@
 package com.projeto.hotel.service;
 
+import com.projeto.hotel.exception.RecordNotFoundException;
 import com.projeto.hotel.model.entity.Customer;
 import com.projeto.hotel.model.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@Validated
 @Service
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-    public Customer save(Customer customerForm) {
-        return customerRepository.save(customerForm);
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     public List<Customer> list() {
         return customerRepository.findAll();
     }
 
-    public Customer findById(Long id) {
-        return customerRepository.findById(id).orElse(null);
+    public Customer findById(@NotNull @Positive Long id) {
+        return customerRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    //    public Customer findByCpf(String cpf){
-//        return customerRepository.findByCpf(cpf).orElse(null);
-//    }
-
-//    public Customer findByCpf(String cpf) {
-//        return customerRepository.findByCpf(cpf)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não encontrado"));
-//    }
-
-    public Customer update(Customer customer) {
-        Customer recordFound = customerRepository.findById(customer.getId()).orElse(null);
-        recordFound.setCpf(customer.getCpf());
-        recordFound.setName(customer.getName());
-        recordFound.setBirthdate(customer.getBirthdate());
-        recordFound.setGender(customer.getGender());
-        recordFound.setMobile(customer.getMobile());
-//        existingCustomer.setAddress(customer.getAddress());
-//        existingCustomer.setAccess(customer.getAccess());
-        return customerRepository.save(recordFound);
-
+    public Customer save(@Valid Customer customer) {
+        return customerRepository.save(customer);
     }
 
+    public Customer update(@NotNull @Positive Long id, @Valid Customer customer) {
+        return customerRepository.findById(id)
+                .map(recordFound -> {
+                    recordFound.setCpf(customer.getCpf());
+                    recordFound.setName(customer.getName());
+                    recordFound.setBirthdate(customer.getBirthdate());
+                    recordFound.setGender(customer.getGender());
+                    recordFound.setMobile(customer.getMobile());
+                    return customerRepository.save(recordFound);
+                }).orElseThrow(() -> new RecordNotFoundException(id));
+    }
+
+    public void delete(@NotNull @Positive Long id) {
+        customerRepository.delete(customerRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id)));
+    }
 }

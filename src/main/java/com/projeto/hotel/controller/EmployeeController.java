@@ -2,39 +2,49 @@ package com.projeto.hotel.controller;
 
 import com.projeto.hotel.model.entity.Employee;
 import com.projeto.hotel.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("api/employee")
 public class EmployeeController {
 
-    @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping(value = "/registerEmployee")
-    public Employee save(@RequestBody Employee employee){
-        return employeeService.save(employee);
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping
-    public List<Employee> list(){
+    public @ResponseBody List<Employee> list(){
         return employeeService.list();
     }
 
-    @GetMapping(value = "/findEmployeeById/{id}")
-    public Employee findById(@PathVariable Long id){
-        return employeeService.findById(id);
-    }
-
-    @PutMapping(value = "/editEmployee")
-    public Employee update(@RequestBody Employee employee){
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Employee save(@RequestBody @Valid Employee employee){
         return employeeService.save(employee);
     }
 
-    @DeleteMapping(value = "/deleteEmployee/{id}")
-    public String delete(@PathVariable Long id){
-        return employeeService.delete(id);
+    @GetMapping(value = "/{id}")
+    public Employee findById(@PathVariable @NotNull @Positive Long id){
+        return employeeService.findById(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public Employee update(@PathVariable @NotNull @Positive Long id ,@RequestBody @Valid Employee employee){
+        return employeeService.update(id, employee);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable @NotNull @Positive Long id){
+        employeeService.delete(id);
     }
 }
